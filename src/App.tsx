@@ -1,18 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect, useRef} from 'react';
 import './App.css';
 
+import {render} from "@testing-library/react";
+import {RouterProvider} from "react-router-dom";
+import router from "./router";
+
 function App() {
-  return (
-      <>
-          <h1 className="text-3xl font-bold underline text-center">
-              Hello world!
-          </h1>
-          <img src={logo} alt="react logo"/>
-      </>
-
-
-  );
+    return (
+        <>
+            <RouterProvider router={router} />
+        </>
+    );
 }
 
 export default App;
