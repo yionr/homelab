@@ -10,11 +10,11 @@ export default createBrowserRouter([
         children: [
             {
                 path: 'demo01',
-                element: <Demo02/>
+                element: <Demo01/>
             },
             {
                 path: 'demo02',
-                element: <Demo01/>
+                element: <Demo02/>
             },
             {
                 path: 'demo03',

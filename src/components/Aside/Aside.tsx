@@ -1,11 +1,8 @@
 import React, {useRef} from "react";
 import {NavLink, Outlet} from "react-router-dom";
 import './Aside.css'
-export function Aside () {
 
-    let divRef = useRef<HTMLDivElement>(null)
-
-
+export function Aside() {
     return (
         <>
             <div className={'page'}>
@@ -21,7 +18,7 @@ export function Aside () {
                         to={`/demo03`}
                     >Demo03</NavLink></li>
                 </ul>
-                <div className={'content'} ref={divRef}><Outlet/></div>
+                <Outlet/>
 
             </div>
         </>

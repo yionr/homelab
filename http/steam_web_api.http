@@ -1,0 +1,18 @@
+### 最近玩过的游戏
+
+GET http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key={{api_key}}&steamid={{steamid}}&format=json
+
+<> 2023-04-29T005507.200.json
+
+### 个人信息(可以获取到正在玩的游戏)
+GET http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={{api_key}}&steamids={{steamid}}
+
+<> 2023-04-29T010934.200.json
+
+### 获取游戏的同时在线人数
+
+GET https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid={{ appid_issac }}
+
+<> 2023-04-29T010551.200.json
+
+

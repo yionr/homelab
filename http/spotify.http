@@ -1,0 +1,20 @@
+### get access token
+POST https://accounts.spotify.com/api/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&client_id={{spotify_client_id}}&client_secret={{spotify_client_secret}}
+
+
+### use refresh token to get access token(step1)
+POST https://accounts.spotify.com/api/token
+Authorization: Basic NmZhZTBmZjc3YTM1NDViM2EzZjYyN2UxMmQ2MjZjMjU6NWYzNjdjNjM0N2EyNDEzNWFmNDAzYTFmZmZkYmU5ZDg=
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=refresh_token&refresh_token={{spotify_refresh_token}}
+
+
+> {% client.global.set("access_token", response.body.access_token); %}
+
+### step2
+GET https://api.spotify.com/v1/me/player
+Authorization: "Bearer {{access_token}}"
