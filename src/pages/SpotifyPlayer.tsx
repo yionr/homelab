@@ -31,7 +31,9 @@ export function SpotifyPlayer() {
     return (
         <>
             <canvas ref={ref} style={{display: "none"}}></canvas>
-            <div id="container" ref={processRef}></div>
+            <div className={'process'}>
+                <div id="container" ref={processRef}></div>
+            </div>
         </>
 
     );
