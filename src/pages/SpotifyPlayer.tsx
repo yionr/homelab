@@ -97,6 +97,12 @@ async function render(canvas: HTMLCanvasElement,processRef: HTMLDivElement) {
 
     const controls = new OrbitControls(camera, renderer.domElement);
 
+    controls.minPolarAngle = THREE.MathUtils.degToRad(40);
+    controls.maxPolarAngle = THREE.MathUtils.degToRad(70);
+
+    controls.minAzimuthAngle = THREE.MathUtils.degToRad(0);
+    controls.maxAzimuthAngle = THREE.MathUtils.degToRad(30);
+
     // 设置控制器属性
     controls.enableDamping = true; // 开启阻尼
     controls.dampingFactor = 0.05; // 阻尼系数，越小越平滑
