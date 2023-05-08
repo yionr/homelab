@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useEffect, useRef} from "react";
+import {Ref, useEffect, useRef} from "react";
 
 
 import * as THREE from 'three';
@@ -9,23 +9,29 @@ import {TextGeometry} from "three/examples/jsm/geometries/TextGeometry";
 import {deg2Radians} from "../tools";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import {RoundedBoxGeometry} from "three/examples/jsm/geometries/RoundedBoxGeometry";
+import './process.css'
+const ProgressBar = require('progressbar.js')
 
-
-const FONT_URL = 'https://cdn.yionr.cn/STFangsong_Regular.json'
+const FONT_URL = 'https://yionr.oss-cn-hangzhou.aliyuncs.com/fonts/STFangsong_Regular.json'
 
 /*
 spotify
  */
 export function SpotifyPlayer() {
     let ref = useRef<HTMLCanvasElement>(null)
+    let processRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        ref.current && render(ref.current)
+        ref.current && processRef.current && render(ref.current,processRef.current)
+        return () => {
+            processRef.current!.innerHTML = ''
+        }
     }, [ref.current])
 
     return (
         <>
-            <canvas ref={ref}></canvas>
+            <canvas ref={ref} style={{display: "none"}}></canvas>
+            <div id="container" ref={processRef}></div>
         </>
 
     );
@@ -79,7 +85,7 @@ const processFontProperties = {
 
 let es: Array<EventSource | number> = []
 
-async function render(canvas: HTMLCanvasElement) {
+async function render(canvas: HTMLCanvasElement,processRef: HTMLDivElement) {
 
 
     const scene = new THREE.Scene()
@@ -144,7 +150,12 @@ async function render(canvas: HTMLCanvasElement) {
     scene.add(light);
     scene.add(light.target);
 
-    let font = await loadFont()
+    animate()
+
+
+    let font = await loadFont(processRef)
+    processRef.style.display = 'none'
+    canvas.style.display = 'block'
 
 
     let songMesh = await generateWord('歌名', {x: -4, y: .7, z: PANEL_DEPTH}, 'pink', font, songFontProperties)
@@ -208,13 +219,12 @@ async function render(canvas: HTMLCanvasElement) {
     startUpdateSpotifyContent()
 
 
-    const animate = () => {
+    function animate() {
         requestAnimationFrame(animate)
         controls.update()
         renderer.render(scene, camera)
     }
 
-    animate()
 
 
 }
@@ -233,13 +243,22 @@ interface Image {
     url: string
 }
 
-function loadFont(): Promise<Font> {
+function loadFont(processRef: HTMLDivElement): Promise<Font> {
+    let bar = new ProgressBar.Circle(processRef, {
+        strokeWidth: 6,
+        easing: 'easeInOut',
+        duration: 1400,
+        color: '#FFEA82',
+        trailColor: '#eee',
+        trailWidth: 1,
+        svgStyle: null
+    });
     return new Promise((resolve, reject) => {
         const loader = new FontLoader();
         loader.load(FONT_URL, (font) => {
             resolve(font)
         }, (e) => {
-            console.log(`${e.loaded} / ${e.total}`)
+            bar.set(e.loaded / e.total)
         })
     })
 }
