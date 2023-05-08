@@ -7,14 +7,11 @@ import {BoxGeometry, Material, Mesh} from 'three';
 import {Font, FontLoader} from "three/examples/jsm/loaders/FontLoader";
 import {TextGeometry} from "three/examples/jsm/geometries/TextGeometry";
 import {deg2Radians} from "../tools";
-import {Simulate} from "react-dom/test-utils";
-import load = Simulate.load;
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import {RoundedBoxGeometry} from "three/examples/jsm/geometries/RoundedBoxGeometry";
-import {stat} from "fs";
 
-// const FONT_URL = 'fonts/STFangsong_Regular.json'
-const FONT_URL = 'fonts/STFangsong_Regular.json'
+
+const FONT_URL = 'https://cdn.yionr.cn/STFangsong_Regular.json'
 
 /*
 spotify
@@ -241,6 +238,8 @@ function loadFont(): Promise<Font> {
         const loader = new FontLoader();
         loader.load(FONT_URL, (font) => {
             resolve(font)
+        }, (e) => {
+            console.log(`${e.loaded} / ${e.total}`)
         })
     })
 }

@@ -13,8 +13,7 @@ import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import {RoundedBoxGeometry} from "three/examples/jsm/geometries/RoundedBoxGeometry";
 import {stat} from "fs";
 
-// const FONT_URL = 'fonts/STFangsong_Regular.json'
-const FONT_URL = 'fonts/STFangsong_Regular.json'
+const FONT_URL = 'https://cdn.yionr.cn/STFangsong_Regular.json'
 
 /*
 spotify
